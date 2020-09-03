@@ -1,0 +1,21 @@
+rule_files:
+  - alerts_missing.yml
+
+evaluation_interval: 1m
+
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'up{job="prometheus", instance="localhost:9090"}'
+        values: "0 0"
+      - series: 'up{job="node_exporter", instance="localhost:9100"}'
+        values: "_ 0"
+    alert_rule_test:
+      - eval_time: 0m
+        alertname: InstanceMissing
+        exp_alerts:
+          - exp_annotations:
+              summary: "An instance is not reporting data"
+      - eval_time: 1m
+        alertname: InstanceMissing
+        exp_alerts: []

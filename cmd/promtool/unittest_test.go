@@ -27,7 +27,11 @@ func TestRulesUnitTest(t *testing.T) {
 		{
 			name: "Passing Unit Tests",
 			args: args{
-				files: []string{"./testdata/unittest.yml"},
+				files: []string{
+					"./testdata/unittest.yml",
+					"./testdata/unittest_missing_good.yml",
+					"./testdata/unittest_missing_bad.yml",
+				},
 			},
 			want: 0,
 		},
